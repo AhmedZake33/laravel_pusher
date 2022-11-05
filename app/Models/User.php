@@ -6,6 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Scopes\UsersScope;
+use Illuminate\Database\Eloquent\Builder;
 
 class User extends Authenticatable
 {
@@ -37,6 +39,25 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // protected static function booted()
+    // {
+    //     // static::addGlobalScope(new UsersScope);
+
+    //     static::addGlobalScope('usersScope2',function(Builder $builder){
+    //         $builder->where('flag',0);
+    //     });
+    // }
+
+    // public function scopeActive($query)
+    // {
+    //     return $query->where('flag',1);
+    // }
+
+    public function scopeOfActive($query , $active)
+    {
+        return $query->where('active',$active);
+    }
 
     public function posts()
     {

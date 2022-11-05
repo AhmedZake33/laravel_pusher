@@ -45,10 +45,18 @@ route::get('sendMail',function(){
     //     return 'not sent';
     // }
         
-   $job = new SendMailJob();
-   $job = $job->delay(\Carbon\Carbon::now()->addSeconds(5));
-   dispatch($job);
+//    $job = new SendMailJob();
+//    $job = $job->delay(\Carbon\Carbon::now()->addSeconds(5));
+//    dispatch($job);
 
+
+        // Global Scope
+        // $users = User::withoutGlobalScope('UsersScope2')->get();    
+        // return $users; 
+        
+        // Local Scope 
+        $users = User::ofActive(1)->get();
+        return $users;
 
         // Mail::to('ahmed.zake333@gmail.com')->send(new MailSystem('this is data','mail'));
 
